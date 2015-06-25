@@ -15,17 +15,19 @@ var marker_orange = new L.icon({iconUrl: 'images/marker_orange.png'});
 var marker_blue = new L.icon({iconUrl: 'images/marker_blue.png'});
 
 // get issues
-$.getJSON("https://seeclickfix.com/api/v2/issues?place_url=fruitvale-station&per_page=100"
+$.getJSON("https://seeclickfix.com/api/v2/issues?place_url=fruitvale-station"
   , function(data){
 
     var issues_list = [];
 
     $.each(data.issues, function(i, issue){
-      
+
       if (issue.closed_at) {
         console.log(issue);
         markerLocation = new L.LatLng(parseFloat(issue.lat), parseFloat(issue.lng));
-        var marker = new L.Marker(markerLocation).bindPopup(issue.summary + '<br/>' + issue.description + '<img src="http://i.giphy.com/VqFhKBifawzIc.gif" />');
+        imgs = ["http://i.giphy.com/VqFhKBifawzIc.gif","http://i.giphy.com/aKjnUBa0nSGn6.gif","http://i.giphy.com/nU704Y2jeFOHm.gif","http://i.giphy.com/a3IWyhkEC0p32.gif"]
+        random = Math.floor((Math.random()* imgs.length ));
+        var marker = new L.Marker(markerLocation).bindPopup("<h1>FIXED</h1>"+issue.summary + '<br/>' + issue.description + '<img src="'+ imgs[random] +'"/>');
         issues_list.push(marker);
       }
 
